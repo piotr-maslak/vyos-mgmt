@@ -19,16 +19,4 @@ ping localhost -n %timeout% >NUL
 echo get nat-rules              (plink -batch -P %port% %pw% %user%@%host% -m get-scripts\nat.sh)
 plink -batch -P %port% %pw% %user%@%host% -m get-scripts\nat.sh > nat.txt
 echo get completed
-if exist .git (
-	git add "*.txt"
-	git add "*.cfg"
-	git add "*.md"
-	git commit -m "commited"
-) else (
-    git init
-	git add "*.txt"
-	git add "*.cfg"
-	git add "*.md"
-	git commit -m "commited"
-)
 pause
