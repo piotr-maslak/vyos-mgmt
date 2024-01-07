@@ -7,6 +7,13 @@ This piece of scipts requires
 Password or key method are used as an authentication methods so you need to provide a key with and agent help
 pageant .\path\to\key.ppk
 
+The file config.cmd contains basic variables that enables you to connect to the server remotely using the protocols. There is a default-config.cmd file which desribes the varibles. The variables are:
+host=localhost (host fqdn)
+port=22 (port number)
+user=vyos (username string)
+pw=yvos (password string)
+timeout=3 (in seconds)
+version=vyos-1.2 | vyos-1.3 | vyos-1.4
 
 ### Hardware
 | RAM | DISK | CPU |
