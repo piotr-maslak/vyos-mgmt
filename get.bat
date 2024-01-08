@@ -24,5 +24,4 @@ echo get completed, wait %timeout%s
 ping localhost -n %timeout% >NUL
 echo get nat-rules              (plink -batch -P %port% %pw% %user%@%host% -m get-scripts\nat.sh)
 plink -batch -P %port% %pw% %user%@%host% -m get-scripts\nat.sh > nat.txt
-echo get completed
-pause
+echo get completed, wait %timeout%s
