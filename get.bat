@@ -1,8 +1,14 @@
 @echo off
-call config.cmd
+if exist config.cmd (   
+    call config.cmd
+) else (
+    call ..\config.cmd
+)
+
 IF "%pw%" == "" (SET /p pw=enter password or press enter to use pagent:)
 IF NOT "%pw%" == "" (SET pw=-pw %pw%)
 IF "%pw%" == "" (SET pw=-agent)
+
 echo get from %host%
 echo get configuration          (plink -batch -P %port% %pw% %user%@%host% -m get-scripts\configuration.sh)
 plink -batch -P %port% %pw% %user%@%host% -m get-scripts\configuration.sh > configuration.cfg

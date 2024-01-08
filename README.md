@@ -21,7 +21,6 @@ set system gateway-address '192.168.1.254'
 set service ssh port '2222'
 set system login user vyos authentication plaintext-password 'Abcd!234'
 
-
 ### Hardware
 | RAM | DISK | CPU |
 |-----|------|-----|
