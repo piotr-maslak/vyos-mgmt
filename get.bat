@@ -16,16 +16,16 @@ IF "%pw%" == "" (SET pw=-agent)
 echo connecting %host%
 
 echo get configuration
-plink -batch -P %port% %pw% %user%@%host% -m %scrpath%\configuration.sh > %mydate%-configuration.cfg
+plink -batch -P %port% %pw% %user%@%host% -m %scrpath%\configuration.sh > %date%-configuration.cfg
 ping localhost -n %timeout% >NUL
 
 echo get configuration-commands
-plink -batch -P %port% %pw% %user%@%host% -m %scrpath%\commands.sh > %mydate%-commands.cfg
+plink -batch -P %port% %pw% %user%@%host% -m %scrpath%\commands.sh > %date%-commands.cfg
 ping localhost -n %timeout% >NUL
 
 echo get firewall-rules
-plink -batch -P %port% %pw% %user%@%host% -m %scrpath%\firewall.sh > %mydate%-firewall.txt
+plink -batch -P %port% %pw% %user%@%host% -m %scrpath%\firewall.sh > %date%-firewall.txt
 ping localhost -n %timeout% >NUL
 
 echo get nat-rules
-plink -batch -P %port% %pw% %user%@%host% -m %scrpath%\nat.sh > %mydate%-nat.txt
+plink -batch -P %port% %pw% %user%@%host% -m %scrpath%\nat.sh > %date%-nat.txt
