@@ -4,6 +4,11 @@ if exist config.cmd (
 ) else (
     call ..\config.cmd
 )
+if exist include (
+    call include\include.cmd
+) else (
+    call ..\include\config.cmd
+)
 
 echo connecting %host%
 
