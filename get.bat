@@ -5,23 +5,19 @@ if exist config.cmd (
     call ..\config.cmd
 )
 
-IF "%pw%" == "" (SET /p pw=enter password or press enter to use pagent:)
-IF NOT "%pw%" == "" (SET pw=-pw %pw%)
-IF "%pw%" == "" (SET pw=-agent)
+echo connecting %host%
 
-echo get from %host%
-echo get configuration          (plink -batch -P %port% %pw% %user%@%host% -m get-scripts\configuration.sh)
-plink -batch -P %port% %pw% %user%@%host% -m get-scripts\%version%\configuration.sh > configuration.cfg
-echo get completed, wait %timeout%s
+echo get configuration
+plink -batch -P %port% %pw% %user%@%host% -m get-scripts\%version%\configuration.sh > configuration-%date%.cfg
 ping localhost -n %timeout% >NUL
-echo get configuration-commands (plink -batch -P %port% %pw% %user%@%host% -m get-scripts\commands.sh)
-plink -batch -P %port% %pw% %user%@%host% -m get-scripts\%version%\commands.sh > commands.cfg
-echo get completed, wait %timeout%s
+
+echo get configuration-commands
+plink -batch -P %port% %pw% %user%@%host% -m get-scripts\%version%\commands.sh > commands-%date%.cfg
 ping localhost -n %timeout% >NUL
-echo get firewall-rules         (plink -batch -P %port% %pw% %user%@%host% -m get-scripts\firewall.sh)
-plink -batch -P %port% %pw% %user%@%host% -m get-scripts\%version%\firewall.sh > firewall.txt
-echo get completed, wait %timeout%s
+
+echo get firewall-rules
+plink -batch -P %port% %pw% %user%@%host% -m get-scripts\%version%\firewall.sh > firewall-%date%.txt
 ping localhost -n %timeout% >NUL
-echo get nat-rules              (plink -batch -P %port% %pw% %user%@%host% -m get-scripts\nat.sh)
-plink -batch -P %port% %pw% %user%@%host% -m get-scripts\%version%\nat.sh > nat.txt
-echo get completed, wait %timeout%s
+
+echo get nat-rules
+plink -batch -P %port% %pw% %user%@%host% -m get-scripts\%version%\nat.sh > nat-%date%.txt
