@@ -4,6 +4,7 @@ Management scripts for VyOS and EdgeOS.
 This scipts require following software:
 - Putty | https://www.chiark.greenend.org.uk/~sgtatham/putty/
 - Bitvise SSH Client | https://www.bitvise.com/ssh-client-download 
+- Nmap for Windows | https://nmap.org/download.html#windows
 
 The key authentication method needs you to provide a key within an agent<br/>
 ``` pageant .\path\to\key.ppk ```
