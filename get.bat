@@ -27,5 +27,9 @@ echo get firewall-rules
 plink -batch -P %port% %pw% %user%@%host% -m %scrpath%\firewall.sh > %date%-firewall.txt
 ping localhost -n %timeout% >NUL
 
+echo get interfaces
+plink -batch -P %port% %pw% %user%@%host% -m %scrpath%\interfaces.sh > %date%-interfaces.txt
+ping localhost -n %timeout% >NUL
+
 echo get nat-rules
 plink -batch -P %port% %pw% %user%@%host% -m %scrpath%\nat.sh > %date%-nat.txt
