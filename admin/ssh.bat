@@ -24,4 +24,4 @@ IF "%pw%" == "" (SET pw="-pk=a")
 @REM            [-w local_tun[:remote_tun]] destination [command]
 
 
-ssh.exe -J %user%@%host%:%port%
+ssh.exe -l %user% -p %port% %host%
