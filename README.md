@@ -20,7 +20,7 @@ version=vyos-1.2 || vyos-1.3 || vyos-1.4 || edgeos
 ```
 There is a ***default*** folder which contains example of config.cmd and some other defaults for your router.
 
-### Example initial VyOS configuration
+### Initial VyOS configuration
 ```
 set interfaces ethernet eth0 address 'IP_ADDRESS/24'
 set system gateway-address 'IP_ADDRESS'
@@ -33,8 +33,8 @@ set system login user vyos authentication plaintext-password 'p@s$w0rD'
 |-----|------|-----|
 |     |      |     |
 
-### Management
-|methods|                         |
+### Management methods
+|method |                         |
 |-------|-------------------------|
 |ssh    | user@example.com:2222   |
 |webui  | https://kvm.example.com |
