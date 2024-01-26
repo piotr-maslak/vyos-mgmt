@@ -10,8 +10,8 @@ if exist include (
     call ..\include\config.cmd
 )
 
-IF NOT "%pw%" == "" (	SET pw=-pw %pw%	)
-IF "%pw%" == "" (SET pw=-agent)
+IF NOT "%pw%" == "" ( SET pw=-pw %pw% )
+IF "%pw%" == "" ( SET pw=-agent )
 
 echo connecting %host%
 
