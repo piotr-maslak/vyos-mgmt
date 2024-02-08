@@ -1,2 +1,2 @@
-SET pw="empty"
+SET pw=empty
 SET url=%host%
