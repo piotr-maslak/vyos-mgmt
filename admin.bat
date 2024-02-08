@@ -1,6 +1,8 @@
 @echo off
 @REM config.cmd
-call default.config.cmd
+if exist default.config.cmd (
+    call default.config.cmd
+)
 if exist config.cmd (
     call config.cmd
 )
@@ -16,5 +18,5 @@ IF "%pw%" == "" ( SET /p pw="press enter to use agent or enter password for user
 IF NOT "%1" == "" (
     call admin\%1.bat
 ) else (
-    call admin\index.cmd
+    FOR /F %%p IN ("admin\index.cmd") echo %%p
 )

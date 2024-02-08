@@ -1,1 +1,1 @@
-SET pw=vyos
+SET pw=empty
