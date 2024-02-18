@@ -18,5 +18,5 @@ IF "%pw%" == "" ( SET /p pw="press enter to use agent or enter password for user
 IF NOT "%1" == "" (
     call admin\%1.bat
 ) else (
-    FOR /F %%p IN ("admin\index.cmd") DO echo %%p
+    FOR /F %%p IN ("admin\index") DO echo %%p
 )
