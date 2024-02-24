@@ -1,8 +1,10 @@
 ### Description
-vyos-mgmt is a CLI utility for Windows to store VyOS ( and other vyatta based routers like EdgeOS ) configuration in a folder and through it, an easier way to back to the device and reconfigure it.
+vyos-mgmt is a CLI utility for Windows to store VyOS ( and other vyatta based routers like EdgeOS ) configuration backup in a folder.
+It helps to back to the device and reconfigure it after a while. This scipts are writen in powershell and vbash
 
 This scipts require following software (and properly configured PATH):
 - Putty | https://www.chiark.greenend.org.uk/~sgtatham/putty/
+
 - Bitvise SSH Client | https://www.bitvise.com/ssh-client-download 
 - Nmap for Windows | https://nmap.org/download.html#windows
 
