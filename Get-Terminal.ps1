@@ -1,0 +1,4 @@
+Param(
+    [string]$Type
+)
+$Type
