@@ -11,27 +11,28 @@ Else {
     $Credentials = [PSCredential]::empty
 }
 
-# $Username                 yes | no
-# $Credentials              yes | no
-# withPass                  yes | no
+# $Username param           yes | no →
+# $Username credentials     yes | no →
+# withPass                  yes | no →
 
 # Write-Host "Credentials.UserName :" $Credentials.UserName
 # Write-Host "Username :" $Username
 
-If ($Username -eq "") {
-    If ($null -eq $Credentials.UserName) {
+
+
+If ($null -eq $Credentials.UserName) {
+    If ($PSBoundParameters.ContainsKey('Username') -eq $false){
         $Username = Read-Host -Prompt "Enter Username" 
-        $Credentials = [PSCredential]::new($Username, (new-object System.Security.SecureString))
-        $Credentials | Export-CliXml -Path 'credentials.xml'
     }
-    Elseif ($null -ne $Credentials.UserName) {
-        $Username = $Credentials.UserName
-    }
-}
-Else {
     $Credentials = [PSCredential]::new($Username, (new-object System.Security.SecureString))
     $Credentials | Export-CliXml -Path 'credentials.xml'
 }
+Else {
+    If ($PSBoundParameters.ContainsKey('Username') -eq $false){
+        $Username = $Credentials.UserName
+    }
+}
+
 
 If ($withPass) {
     $Password = Read-Host -AsSecureString -Prompt "Enter Password"
