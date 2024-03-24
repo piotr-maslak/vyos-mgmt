@@ -6,7 +6,7 @@ Param ( # Input parameters
     [string]$TermType
 )
 
-Functions Get-Settings {
+Function Get-Settings {
     If (Test-Path ".\settings.json") { 
         $Settings = Get-Content '.\settings.json' | Out-String | ConvertFrom-Json -AsHashtable 
     }
