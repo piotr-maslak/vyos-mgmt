@@ -6,13 +6,30 @@ Param ( # Input parameters
     [string]$TermType
 )
 
+Functions Get-Settings {
+    If (Test-Path ".\settings.json") { 
+        $Settings = Get-Content '.\settings.json' | Out-String | ConvertFrom-Json -AsHashtable 
+    }
+    Else {
+        $Settings = @{}
+    }
+    return $Settings
+}
+
 $Params = @{} # Grab parameters to a hash table
 foreach ($paramName in $PSBoundParameters.Keys) { 
     $Params[$paramName] = $PSBoundParameters[$paramName]
 }
 
-$Settings = . .\Get-Settings.ps1 @Params        # Settings with Params
-$Credentials = . .\Get-Credentials.ps1 @Params  # Credentials with Params
+
+# $Settings = . .\Get-Settings.ps1 @Params        # Settings with Params
+$Settings = Get-Settings # Settings 
+$Credentials = . .\Get-Credentials.ps1 @Params    # Credentials with Params
+
+If ($PSBoundParameters.ContainsKey('Hostname') -eq $true) { 
+    $Settings.hostname = $Hostname 
+}
+
 
 switch ($TermType) { 
     "Putty" {
