@@ -1,37 +1,27 @@
-Param ( # Input parameters
-    [String]$Username,
-    [switch]$withPass,
-    [String]$Hostname,
-    [Int]$Port,
+Param (  # Parameters
+    [String]$Username, # -Username abcdef
+    [switch]$withPass, # -withPass true / false
+    [String]$Hostname, # -Hostname fqdn.example.com
+    [Int]$Port,        #
     [string]$TermType
 )
 
-Function Get-Settings {
-    If (Test-Path ".\settings.json") { 
-        $Settings = Get-Content '.\settings.json' | Out-String | ConvertFrom-Json -AsHashtable 
-    }
-    Else {
-        $Settings = @{}
-    }
-    return $Settings
-}
+# $Params = @{} # Grab parameters to a hash table
+# foreach ($paramName in $PSBoundParameters.Keys) { 
+#     $Params[$paramName] = $PSBoundParameters[$paramName]
+# }
 
-$Params = @{} # Grab parameters to a hash table
-foreach ($paramName in $PSBoundParameters.Keys) { 
-    $Params[$paramName] = $PSBoundParameters[$paramName]
-}
-
-
-# $Settings = . .\Get-Settings.ps1 @Params        # Settings with Params
+. .\include\Functions.ps1
 $Settings = Get-Settings # Settings 
-$Credentials = . .\Get-Credentials.ps1 @Params    # Credentials with Params
+$Credentials = Get-Credentials @Params # Credentials (with parameters splatting)
 
-If ($PSBoundParameters.ContainsKey('Hostname') -eq $true) { 
+If ($Params.ContainsKey('Hostname') -eq $true) {
     $Settings.hostname = $Hostname 
+} Elseif ($Settings.hostname -eq "") { 
+    $Settings.hostname = Read-Host "Please enter hostname" 
 }
 
-
-switch ($TermType) { 
+switch ($TermType) {
     "Putty" {
         # PuTTY
         if ($PSBoundParameters.ContainsKey('Port') -eq $true) {
