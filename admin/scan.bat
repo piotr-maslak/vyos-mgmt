@@ -1,3 +1,0 @@
-@echo off
-
-nmap %host%
