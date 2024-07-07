@@ -21,13 +21,7 @@ $Credentials = [CredentialsManager]::new()
 
 # try {
 $localCommand = "plink.exe -batch -P " + $System.Settings.Get("Port") + " -pw " + $Credentials.GetPassword() + " " + $Credentials.GetUsername() + "@" + $System.Settings.Get("Hostname") +" -m include-scripts\" + $System.Settings.Get("System")+ "\configuration.sh"
-# }
-# catch {
-#     $localCommand = $puttyPath + " -ssh -P " + $Settings.ssh.port + " " + $Credentials.Username + "@" + $Settings.hostname
-# }
-
-
-$Settings | ConvertTo-Json | Out-File "settings.json"
 Write-Output $localCommand
 Invoke-Expression -Command $localCommand | Out-File -FilePath "configuration.txt"
-
+$System.Save()
+$Credentials.Save()
