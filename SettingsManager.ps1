@@ -43,7 +43,7 @@ class Settings {
         if ($this.PSObject.Properties[$PropertyName]) {
             return $true
         }
-        else{
+        else {
             return $false
         }
     }
@@ -58,21 +58,28 @@ class Settings {
 }
 
 class SettingsManager {
-    [string]$FilePath
+    [string]$FileName
+    [string]$FolderName = "settings"
     [Settings]$Settings
 
     SettingsManager() {
-        $this.Init("settings/settings.json")
+        $this.Init($this.FolderName, "system.json")
     }
 
-    SettingsManager([string]$SettingsFilePath) {
-        $this.Init($SettingsFilePath)
+    SettingsManager([string]$FileName) {
+        $this.Init($this.FolderName, $FileName)
+    }
+    
+    SettingsManager([string]$FolderName, [string]$FileName) {
+        $this.Init($FolderName, $FileName)
     }
 
-    Init([string]$SettingsFilePath) {
-        $this.FilePath = $SettingsFilePath;
-        If (Test-Path $SettingsFilePath) {
-            $this.Settings = Get-Content $SettingsFilePath | Out-String | ConvertFrom-Json -AsHashtable 
+    Init([string]$FolderName, [string]$FileName) {
+        $this.FileName = $FileName
+        $this.FolderName = $FolderName
+        $path = $FolderName + "\" + $FileName
+        If (Test-Path $path) {
+            $this.Settings = Get-Content $path | Out-String | ConvertFrom-Json -AsHashtable 
         }
         Else {
             $this.Settings = [Settings]::new()
@@ -80,8 +87,12 @@ class SettingsManager {
     }
 
     Save() {
+        if (-not (Test-Path -Path $this.FolderName)) {
+            New-Item -ItemType Directory -Path $this.FolderName
+        }
+        $path = $this.FolderName + "\" + $this.FileName
         $json = $this.Settings | ConvertTo-Json -Depth 5
-        $json | Out-File $this.FilePath
+        $json | Out-File $path
     }
 
     [Settings]GetSettings() {
@@ -90,21 +101,28 @@ class SettingsManager {
 }
 
 class CredentialsManager {
-    [string]$FilePath
+    [string]$FileName
+    [string]$FolderName = "settings"
     [Settings]$Settings
 
     CredentialsManager() {
-        $this.Init("settings/credentials.json")
+        $this.Init($this.FolderName, "credentials.json")
     }
 
-    CredentialsManager([string]$CredentialsFilePath) {
-        $this.Init($CredentialsFilePath)
+    CredentialsManager([string]$FileName) {
+        $this.Init($this.FolderName, $FileName)
+    }
+
+    CredentialsManager([string]$FolderName, [string]$FileName) {
+        $this.Init($FolderName, $FileName)
     }
     
-    Init([string]$CredentialsFilePath) {
-        $this.FilePath = $CredentialsFilePath
-        If (Test-Path $CredentialsFilePath) {
-            $this.Settings = Get-Content $CredentialsFilePath | Out-String | ConvertFrom-Json -AsHashtable 
+    Init([string]$FolderName, [string]$FileName) {
+        $this.FileName = $FileName
+        $this.FolderName = $FolderName
+        $path = $FolderName + "\" + $FileName
+        If (Test-Path $path) {
+            $this.Settings = Get-Content $path | Out-String | ConvertFrom-Json -AsHashtable 
         }
         Else {
             $this.Settings = [Settings]::new()
@@ -112,7 +130,11 @@ class CredentialsManager {
     }
 
     Save() {
-        $this.Settings | ConvertTo-Json -Depth 5 | Out-File $this.FilePath
+        if (-not (Test-Path -Path $this.FolderName)) {
+            New-Item -ItemType Directory -Path $this.FolderName
+        }
+        $path = $this.FolderName + "\" + $this.FileName
+        $this.Settings | ConvertTo-Json -Depth 5 | Out-File $path
     }
 
     [String]GetUsername() {
@@ -120,16 +142,17 @@ class CredentialsManager {
     }
 
     [String]GetPassword() {
-        if($this.Settings.Exist("Password")){
+        if ($this.Settings.Exist("Password")) {
             try {
                 return ConvertFrom-SecureString -SecureString $(ConvertTo-SecureString $this.Settings.Get("Password")) -AsPlainText
             }
             catch {
                 return ""
             }
-        }else{
+        }
+        else {
             $Password = Read-Host -AsSecureString -Prompt "Enter Password"
-            $this.Settings.Set("Password",$(ConvertFrom-SecureString -SecureString $Password))
+            $this.Settings.Set("Password", $(ConvertFrom-SecureString -SecureString $Password))
             return ConvertFrom-SecureString -SecureString $(ConvertTo-SecureString $this.Settings.Get("Password")) -AsPlainText 
         }
     }

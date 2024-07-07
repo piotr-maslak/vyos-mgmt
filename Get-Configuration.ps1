@@ -4,7 +4,7 @@ Param (  # Parameters
 )
 
 . .\SettingsManager.ps1
-$System = [SettingsManager]::new("settings/system.json")
+$System = [SettingsManager]::new()
 $Credentials = [CredentialsManager]::new()
 
 # Leave this block as it contains Check Hostname Parameter 
