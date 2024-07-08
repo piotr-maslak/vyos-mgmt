@@ -4,7 +4,7 @@ Param (  # Parameters
 )
 
 . .\SettingsManager.ps1
-$System = [SettingsManager]::new("settings/system.json")
+$System = [SettingsManager]::new()
 $Credentials = [CredentialsManager]::new()
 
 $localCommand = "putty.exe -ssh -P " + $System.Settings.Get("Port") + " -pw " + $Credentials.GetPassword() + " " + $Credentials.GetUsername() + "@" + $System.Settings.Get("Hostname")
