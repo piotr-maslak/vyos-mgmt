@@ -7,21 +7,13 @@ Param (  # Parameters
 $System = [SettingsManager]::new()
 $Credentials = [CredentialsManager]::new()
 
-# Leave this block as it contains Check Hostname Parameter 
-# If ($Params.ContainsKey('Hostname') -eq $true) {
-#     $Settings.hostname = $Hostname 
-# }
 
-# If ($Params.ContainsKey('Port') -eq $true) {
-#         $Settings.ssh.port = $Port
-# }
 
-# putty.exe -ssh -P %port% %pw% %user%@%host%
-# plink -batch -P %port% %pw% %user%@%host% -m %scrpath%\configuration.sh > %date%-configuration.cfg
-
-# try {
-$localCommand = "plink.exe -batch -P " + $System.Settings.Get("Port") + " -pw " + $Credentials.GetPassword() + " " + $Credentials.GetUsername() + "@" + $System.Settings.Get("Hostname") +" -m include-scripts\" + $System.Settings.Get("System")+ "\configuration.sh"
-Write-Output $localCommand
-Invoke-Expression -Command $localCommand | Out-File -FilePath "configuration.txt"
+$getConfigurationCmd = "plink.exe -batch -P " + $System.Settings.Get("Port") + " -pw " + $Credentials.GetPassword() + " " + $Credentials.GetUsername() + "@" + $System.Settings.Get("Hostname") +" -m include-scripts\" + $System.Settings.Get("System")+ "\configuration.sh"
+$getCommandsCmd = "plink.exe -batch -P " + $System.Settings.Get("Port") + " -pw " + $Credentials.GetPassword() + " " + $Credentials.GetUsername() + "@" + $System.Settings.Get("Hostname") +" -m include-scripts\" + $System.Settings.Get("System")+ "\commands.sh"
+Write-Output $getConfigurationCmd
+Write-Output $getCommandsCmd
+Invoke-Expression -Command $getConfigurationCmd | Out-File -FilePath "configuration.txt"
+Invoke-Expression -Command $getCommandsCmd | Out-File -FilePath "commands.txt"
 $System.Save()
 $Credentials.Save()
