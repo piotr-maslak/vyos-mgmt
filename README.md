@@ -1,45 +1,23 @@
 ### Description
-vyos-mgmt is a CLI utility for Windows to store VyOS ( and other vyatta based routers like EdgeOS ) configuration backup in a folder.
-It helps to back to the device and reconfigure it after a while. This scipts are writen in powershell and vbash
+vyos-mgmt is a powershell script to manage vyatta based routers ( VyOS, EdgeOS ) configuration & backup in a folder.
+It helps to came back to the device configuration, reconfigure it and again, store the changes. This scipts are writen in powershell and vbash
 
 This scipts require following software (and properly configured PATH):
 - Putty | https://www.chiark.greenend.org.uk/~sgtatham/putty/
 
-- Bitvise SSH Client | https://www.bitvise.com/ssh-client-download 
-- Nmap for Windows | https://nmap.org/download.html#windows
-
 The **key authentication** method requires the agent to provide the key<br/>
 example : ``` pageant .\path\to\the\key.ppk ```
 
-The **config.cmd** file should contain variables that enables your scripts to connect to the server remotely using the ssh protocol. The file should be placed in a root of this folder. You can copy this file from a *default* folder.
-The variables included are:
+The settings files should contain variables that provides required info your scripts to connect to the host remotely using the ssh protocol. 
+The file should be placed in settings folder. If some are missing the scripts asks for it for a first time.
+The variables are:
+system.json
 ```
-host=localhost (host fqdn)
-port=22 (port number)
-user=vyos (username string)
-pw=yvos (password string)
-timeout=3 (in seconds)
-version=vyos-1.2 || vyos-1.3 || vyos-1.4 || edgeos
-```
+{
+  "Port": "22",
+  "Hostname": "fqdn.example.com",
+  "System": "vyos-1.3" or "System": "vyos-1.4" or "System": "edgeos"
+}
 
-### Initial router configuration
-To connect to the router with this scripts you should done a basic router configuration.
 ```
-set interfaces ethernet eth0 address 'IP_ADDRESS/24'
-set system gateway-address 'IP_ADDRESS'
-set service ssh port 'PORT'
-set system login user vyos authentication plaintext-password 'p@s$w0rD'
-```
-The more extensive configuration example is placed in a default folder.
-
-### Hardware
-| RAM | DISK | CPU |
-|-----|------|-----|
-|     |      |     |
-
-### Management methods
-|method |                         |
-|-------|-------------------------|
-|ssh    | user@example.com:2222   |
-|webui  | https://kvm.example.com |
-|serial | 9600.8.1                |
+there are also serial.json and credentials.json

@@ -3,7 +3,7 @@ Param (  # Parameters
     [String]$Username # -Username username
 )
 
-. .\SettingsManager.ps1
+. .\include-scripts\SettingsManager.ps1
 $System = [SettingsManager]::new()
 $Credentials = [CredentialsManager]::new()
 
