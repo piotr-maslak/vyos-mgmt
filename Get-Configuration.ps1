@@ -4,7 +4,8 @@ Param (  # Parameters
     [switch]$nopass
 )
 
-. .\include-scripts\SettingsManager.ps1
+. $PSScriptRoot\scripts\SettingsManager.ps1
+
 $System = [SettingsManager]::new()
 $Credentials = [CredentialsManager]::new()
 
@@ -16,10 +17,10 @@ $plinkCmd += " -pw " + $Credentials.GetPassword()
 }
 $plinkCmd += " " + $Credentials.GetUsername() + "@" + $System.Settings.Get("Hostname")
 
-$getConfigurationCmd = $plinkCmd + " -m include-scripts\" + $System.Settings.Get("System") + "\configuration.sh"
+$getConfigurationCmd = $plinkCmd + " -m " +$PSScriptRoot+ "\scripts\" + $System.Settings.Get("System") + "\configuration.sh"
 Write-Output $getConfigurationCmd
 Invoke-Expression -Command $getConfigurationCmd | Out-File -FilePath "configuration.txt"
-$getCommandsCmd = $plinkCmd + " -m include-scripts\" + $System.Settings.Get("System") + "\commands.sh"
+$getCommandsCmd = $plinkCmd + " -m " +$PSScriptRoot+ "\scripts\" + $System.Settings.Get("System") + "\commands.sh"
 Write-Output $getCommandsCmd
 Invoke-Expression -Command $getCommandsCmd | Out-File -FilePath "commands.txt"
 
