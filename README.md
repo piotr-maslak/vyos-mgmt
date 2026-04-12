@@ -1,17 +1,19 @@
 ### Description
-vyos-mgmt is a powershell script to manage vyatta based routers ( VyOS, EdgeOS ) configuration & backup in a folder.
-It helps to came back to the device configuration, reconfigure it and again, store the changes. This scipts are writen in powershell and vbash
+This is a practical, real-world example to help me to learn the PowerShell scripting language.
+vyos-mgmt is a powershell script to manage vyatta based routers ( VyOS, EdgeOS ) configuration & backup.
 
 This scipts require following software (and properly configured PATH):
 - Putty | https://www.chiark.greenend.org.uk/~sgtatham/putty/
 
+It can use serial connection (serial.json) or a remote based connection (credentials.json)
 The **key authentication** method requires the agent to provide the key<br/>
 example : ``` pageant .\path\to\the\key.ppk ```
 
-The settings files should contain variables that provides required info your scripts to connect to the host remotely using the ssh protocol. 
-The file should be placed in settings folder. If some are missing the scripts asks for it for a first time.
+The settings files should contain variables that provide the information required for your scripts to connect to the device. 
+The files should be placed in the `settings` folder. If any are missing, the scripts will prompt for them the first time.
+
 The variables are:
-system.json
+- system.json
 ```
 {
   "Port": "22",
@@ -20,4 +22,3 @@ system.json
 }
 
 ```
-there are also serial.json and credentials.json
